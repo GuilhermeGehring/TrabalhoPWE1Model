@@ -7,8 +7,6 @@ package br.edu.ifsul.tests.junit;
 
 import br.edu.ifsul.modelo.Curso;
 import br.edu.ifsul.modelo.Disciplina;
-import br.edu.ifsul.modelo.Instituicao;
-import java.util.Calendar;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;

@@ -67,9 +67,9 @@ public class Aluno implements Serializable {
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "disciplinas",
             joinColumns = 
-            @JoinColumn(name = "aluno_id", referencedColumnName = "aluno_id", nullable = false),
+            @JoinColumn(name = "aluno_id", referencedColumnName = "id", nullable = false),
             inverseJoinColumns = 
-            @JoinColumn(name = "disciplina", referencedColumnName = "disciplina_id", nullable = false)) 
+            @JoinColumn(name = "disciplina_id", referencedColumnName = "id", nullable = false)) 
     private Set<Disciplina> disciplinas; //associação bidirecional
 
     public Aluno() {

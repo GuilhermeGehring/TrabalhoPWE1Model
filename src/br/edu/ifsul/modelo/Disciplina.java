@@ -58,7 +58,7 @@ public class Disciplina implements Serializable {
     
     @NotNull(message = "Os conhecimentos mínimos não podem ser nulo")
     @NotBlank(message = "Os conhecimentos mínimos não podem ficar em branco")    
-    @Column(name = "descricao", nullable = false)
+    @Column(name = "conhecimentos_minimos", nullable = false)
     private String conhecimentosMinimos;
     
     @NotNull(message = "O curso deve ser informado")

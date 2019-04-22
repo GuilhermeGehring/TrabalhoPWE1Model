@@ -60,9 +60,12 @@ public class Nota implements Serializable {
             foreignKey = @ForeignKey(name = "fk_disciplina_id"))
     private Disciplina disciplina;
 
-    public Nota() {
-        this.media = (this.nota01 + this.nota02) / 2;
+    public Nota() {        
     }
+    
+    public Double gerarMedia(double nota01, double nota02) {
+        return (this.nota01 + this.nota02) / 2;
+    }    
 
     public Integer getId() {
         return id;
