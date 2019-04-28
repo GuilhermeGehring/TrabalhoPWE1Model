@@ -46,7 +46,7 @@ public class TestePersistirNota {
         obj1.setNota02(5.3);
         obj1.setMedia(obj1.gerarMedia(obj1.getNota01(), obj1.getNota02()));
         obj1.setAluno(em.find(Aluno.class, 1));
-        obj1.setDisciplina(em.find(Disciplina.class, 1));
+        obj1.setDisciplina(em.find(Disciplina.class, 3));
         
         em.getTransaction().begin();
         em.persist(obj1);        

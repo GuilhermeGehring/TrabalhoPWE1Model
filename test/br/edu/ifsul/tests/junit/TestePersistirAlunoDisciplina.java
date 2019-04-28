@@ -1,11 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.edu.ifsul.tests.junit;
 
-import br.edu.ifsul.modelo.Instituicao;
+import br.edu.ifsul.modelo.Aluno;
+import br.edu.ifsul.modelo.Disciplina;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -15,14 +11,14 @@ import org.junit.Test;
 
 /**
  *
- * @author guilherme
+ * @author Jorge
  */
-public class TestePersistirInstituicao {
-
+public class TestePersistirAlunoDisciplina {
+    
     EntityManagerFactory emf;
     EntityManager em;
     
-    public TestePersistirInstituicao() {
+    public TestePersistirAlunoDisciplina() {
     }
     
     @Before
@@ -39,12 +35,10 @@ public class TestePersistirInstituicao {
     
     @Test
     public void teste(){
-        Instituicao obj1 = new Instituicao();
-        obj1.setNome("Instituto Federal Sul-riograndense");                
-        obj1.setAnoFundacao(2019);
-        
+        Aluno obj = em.find(Aluno.class, 1);
+        obj.getDisciplinas().add(em.find(Disciplina.class, 3));
         em.getTransaction().begin();
-        em.persist(obj1);        
+        em.persist(obj);
         em.getTransaction().commit();        
     }
     

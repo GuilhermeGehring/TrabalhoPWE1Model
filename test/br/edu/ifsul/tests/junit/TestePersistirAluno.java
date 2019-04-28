@@ -6,7 +6,9 @@
 package br.edu.ifsul.tests.junit;
 
 import br.edu.ifsul.modelo.Aluno;
+import java.time.Instant;
 import java.util.Calendar;
+import java.util.Date;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -43,7 +45,7 @@ public class TestePersistirAluno {
         Aluno obj = new Aluno();
         obj.setEmail("usuario@gmail.com");
         obj.setNome("Guilherme");
-        obj.setNascimento(Calendar.getInstance());        
+        obj.setNascimento(Date.from(Instant.MIN));        
         em.getTransaction().begin();
         em.persist(obj);
         em.getTransaction().commit();        

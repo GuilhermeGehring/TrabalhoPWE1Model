@@ -8,7 +8,9 @@ package br.edu.ifsul.tests.junit;
 import br.edu.ifsul.modelo.Disciplina;
 import br.edu.ifsul.modelo.Especialidade;
 import br.edu.ifsul.modelo.Professor;
+import java.time.Instant;
 import java.util.Calendar;
+import java.util.Date;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -45,7 +47,7 @@ public class TestePersistirProfessor {
         Professor obj = new Professor();
         obj.setEmail("joao@gmail.com");
         obj.setNome("joao");        
-        obj.setNascimento(Calendar.getInstance());        
+        obj.setNascimento(Date.from(Instant.MIN));        
         obj.setTitulacao("Titulação 1");
         obj.setTopicosInteresse("Tópico 1");
         obj.setEspecialidade(em.find(Especialidade.class, 1));        

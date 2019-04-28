@@ -7,6 +7,7 @@ package br.edu.ifsul.modelo;
 
 import java.io.Serializable;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Objects;
 import java.util.Set;
 import javax.persistence.Column;
@@ -62,14 +63,14 @@ public class Aluno implements Serializable {
     @Temporal(TemporalType.DATE)
     @NotNull(message = "A data de nascimento deve ser informada")
     @Column(name = "nascimento", nullable = false)
-    private Calendar nascimento;
+    private Date nascimento;
     
     @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "disciplinas",
+    @JoinTable(name = "aluno_disciplina",
             joinColumns = 
-            @JoinColumn(name = "aluno_id", referencedColumnName = "id", nullable = false),
+            @JoinColumn(name = "aluno", referencedColumnName = "id", nullable = false),
             inverseJoinColumns = 
-            @JoinColumn(name = "disciplina_id", referencedColumnName = "id", nullable = false)) 
+            @JoinColumn(name = "disciplina", referencedColumnName = "id", nullable = false)) 
     private Set<Disciplina> disciplinas; //associação bidirecional
 
     public Aluno() {
@@ -99,11 +100,11 @@ public class Aluno implements Serializable {
         this.email = email;
     }
 
-    public Calendar getNascimento() {
+    public Date getNascimento() {
         return nascimento;
     }
 
-    public void setNascimento(Calendar nascimento) {
+    public void setNascimento(Date nascimento) {
         this.nascimento = nascimento;
     }
     

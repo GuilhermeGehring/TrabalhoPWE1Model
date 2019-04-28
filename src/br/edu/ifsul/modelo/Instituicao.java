@@ -6,7 +6,6 @@
 package br.edu.ifsul.modelo;
 
 import java.io.Serializable;
-import java.util.Calendar;
 import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,8 +14,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
@@ -39,11 +37,11 @@ public class Instituicao implements Serializable {
     @Length(max = 100, message = "O nome não pode ter mais que {max} caracteres")
     @Column(name = "nome", length = 100, nullable = false)
     private String nome;
-    
-    @Temporal(TemporalType.DATE)
+            
     @NotNull(message = "O ano de fundação deve ser informado")
+    @Min(message = "O ano de fundação não pode ser negativo", value = 0)
     @Column(name = "ano_fundacao", nullable = false)
-    private Calendar anoFundacao;
+    private Integer anoFundacao;
 
     public Instituicao() {
     }
@@ -64,11 +62,11 @@ public class Instituicao implements Serializable {
         this.nome = nome;
     }
 
-    public Calendar getAnoFundacao() {
+    public Integer getAnoFundacao() {
         return anoFundacao;
     }
 
-    public void setAnoFundacao(Calendar anoFundacao) {
+    public void setAnoFundacao(Integer anoFundacao) {
         this.anoFundacao = anoFundacao;
     }
 
