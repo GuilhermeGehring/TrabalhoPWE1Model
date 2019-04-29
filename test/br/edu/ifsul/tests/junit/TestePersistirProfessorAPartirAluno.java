@@ -5,9 +5,9 @@
  */
 package br.edu.ifsul.tests.junit;
 
+import br.edu.ifsul.modelo.Aluno;
 import br.edu.ifsul.modelo.Especialidade;
 import br.edu.ifsul.modelo.Professor;
-import java.util.Calendar;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -19,18 +19,18 @@ import org.junit.Test;
  *
  * @author guilherme
  */
-public class TestePersistirProfessor {
+public class TestePersistirProfessorAPartirAluno {
     
     EntityManagerFactory emf;
     EntityManager em;
     
-    public TestePersistirProfessor() {
+    public TestePersistirProfessorAPartirAluno() {
     }
     
     @Before
     public void setUp() {
         emf = Persistence.createEntityManagerFactory("TrabalhoPWE1ModelPU");
-        em = emf.createEntityManager();        
+        em = emf.createEntityManager();
     }
     
     @After
@@ -41,17 +41,15 @@ public class TestePersistirProfessor {
     
     @Test
     public void teste(){
-        Professor obj = new Professor();
-        obj.setEmail("joao@gmail.com");
-        obj.setNome("joao");        
-        obj.setNascimento(Calendar.getInstance());        
+        Aluno aluno = em.find(Aluno.class, 1);
+        Professor obj = new Professor(aluno);
         obj.setTitulacao("Titulação 1");
-        obj.setTopicosInteresse("Tópico 1");
-        obj.setEspecialidade(em.find(Especialidade.class, 1));        
+        obj.setTopicosInteresse("Tópico 2");
+        obj.setEspecialidade(em.find(Especialidade.class, 1));
         
         em.getTransaction().begin();
         em.persist(obj);
-        em.getTransaction().commit();        
+        em.getTransaction().commit();
     }
     
 }

@@ -7,7 +7,6 @@ package br.edu.ifsul.modelo;
 
 import java.io.Serializable;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.Objects;
 import java.util.Set;
 import javax.persistence.Column;
@@ -63,7 +62,7 @@ public class Aluno implements Serializable {
     @Temporal(TemporalType.DATE)
     @NotNull(message = "A data de nascimento deve ser informada")
     @Column(name = "nascimento", nullable = false)
-    private Date nascimento;
+    private Calendar nascimento;
     
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "aluno_disciplina",
@@ -100,11 +99,11 @@ public class Aluno implements Serializable {
         this.email = email;
     }
 
-    public Date getNascimento() {
+    public Calendar getNascimento() {
         return nascimento;
     }
 
-    public void setNascimento(Date nascimento) {
+    public void setNascimento(Calendar nascimento) {
         this.nascimento = nascimento;
     }
     
