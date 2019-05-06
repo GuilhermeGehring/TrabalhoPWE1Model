@@ -36,7 +36,7 @@ public class TestePersistirAlunoDisciplina {
     @Test
     public void teste(){
         Aluno obj = em.find(Aluno.class, 1);
-        obj.getDisciplinas().add(em.find(Disciplina.class, 3));
+        obj.getDisciplinas().add(em.find(Disciplina.class, 1));
         em.getTransaction().begin();
         em.persist(obj);
         em.getTransaction().commit();        

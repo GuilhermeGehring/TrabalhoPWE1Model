@@ -50,7 +50,7 @@ public class Professor extends Aluno implements Serializable {
         
     public Professor(Aluno aluno) {
         super.setNome(aluno.getNome());
-        super.setEmail(aluno.getNome());
+        super.setEmail(aluno.getEmail());
         super.setNascimento(aluno.getNascimento());
     }
 
@@ -76,31 +76,6 @@ public class Professor extends Aluno implements Serializable {
 
     public void setEspecialidade(Especialidade especialidade) {
         this.especialidade = especialidade;
-    }
-
-    @Override
-    public int hashCode() {
-        int hash = 7;
-        hash = 37 * hash + Objects.hashCode(this.titulacao);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final Professor other = (Professor) obj;
-        if (!Objects.equals(this.titulacao, other.titulacao)) {
-            return false;
-        }
-        return true;
     }    
     
 }

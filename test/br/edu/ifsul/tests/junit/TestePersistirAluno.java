@@ -40,9 +40,9 @@ public class TestePersistirAluno {
     
     @Test
     public void teste(){
-        Aluno obj = new Aluno();
-        obj.setEmail("usuario@gmail.com");
+        Aluno obj = new Aluno();        
         obj.setNome("Guilherme");
+        obj.setEmail("usuario@gmail.com");
         obj.setNascimento(Calendar.getInstance());        
         em.getTransaction().begin();
         em.persist(obj);

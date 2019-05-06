@@ -40,8 +40,8 @@ public class TestePersistirInstituicao {
     @Test
     public void teste(){
         Instituicao obj1 = new Instituicao();
-        obj1.setNome("Instituto Federal Sul-riograndense");                
-        obj1.setAnoFundacao(2019);
+        obj1.setNome("UPF");
+        obj1.setAnoFundacao(2000);
         
         em.getTransaction().begin();
         em.persist(obj1);        
