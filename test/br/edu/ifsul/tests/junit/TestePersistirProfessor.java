@@ -20,38 +20,40 @@ import org.junit.Test;
  * @author guilherme
  */
 public class TestePersistirProfessor {
-    
+
     EntityManagerFactory emf;
     EntityManager em;
-    
+
     public TestePersistirProfessor() {
     }
-    
+
     @Before
     public void setUp() {
         emf = Persistence.createEntityManagerFactory("TrabalhoPWE1ModelPU");
-        em = emf.createEntityManager();        
+        em = emf.createEntityManager();
     }
-    
+
     @After
     public void tearDown() {
         em.close();
         emf.close();
     }
-    
+
     @Test
-    public void teste(){
+    public void teste() {
         Professor obj = new Professor();
         obj.setEmail("joao@gmail.com");
-        obj.setNome("joao");        
-        obj.setNascimento(Calendar.getInstance());        
+        obj.setNome("joao");
+        obj.setNomeUsuario("joao");
+        obj.setSenha("joao");
+        obj.setNascimento(Calendar.getInstance());
         obj.setTitulacao("Titulação 1");
         obj.setTopicosInteresse("Tópico 1");
-        obj.setEspecialidade(em.find(Especialidade.class, 1));        
-        
+        obj.setEspecialidade(em.find(Especialidade.class, 1));
+
         em.getTransaction().begin();
         em.persist(obj);
-        em.getTransaction().commit();        
+        em.getTransaction().commit();
     }
-    
+
 }

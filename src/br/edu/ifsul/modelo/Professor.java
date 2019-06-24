@@ -26,18 +26,18 @@ import org.hibernate.validator.constraints.NotBlank;
 @Table
 @DiscriminatorValue(value = "PR")
 public class Professor extends Aluno implements Serializable {
-    
+
     @NotNull(message = "A titulação não pode ser nula")
     @NotBlank(message = "A titulação não pode ficar em branco")
     @Length(max = 100, message = "A titulação não pode ter mais que {max} caracteres")
     @Column(name = "titulacao", length = 100, nullable = false)
     private String titulacao;
-    
+
     @NotNull(message = "Os tópicos de interesse não podem ser nulo")
-    @NotBlank(message = "Os tópicos de interesse não podem ficar em branco")    
+    @NotBlank(message = "Os tópicos de interesse não podem ficar em branco")
     @Column(name = "topicos_interesse", nullable = false)
     private String topicosInteresse;
-    
+
     @NotNull(message = "A especialidade deve ser informada")
     @ManyToOne
     @JoinColumn(name = "especialidade", referencedColumnName = "id", nullable = false,
@@ -47,9 +47,10 @@ public class Professor extends Aluno implements Serializable {
     public Professor() {
         super();
     }
-        
+
     public Professor(Aluno aluno) {
         super.setNome(aluno.getNome());
+        super.setNomeUsuario(aluno.getNomeUsuario());
         super.setEmail(aluno.getEmail());
         super.setNascimento(aluno.getNascimento());
     }
@@ -69,13 +70,13 @@ public class Professor extends Aluno implements Serializable {
     public void setTopicosInteresse(String topicosInteresse) {
         this.topicosInteresse = topicosInteresse;
     }
-    
+
     public Especialidade getEspecialidade() {
         return especialidade;
     }
 
     public void setEspecialidade(Especialidade especialidade) {
         this.especialidade = especialidade;
-    }    
-    
+    }
+
 }

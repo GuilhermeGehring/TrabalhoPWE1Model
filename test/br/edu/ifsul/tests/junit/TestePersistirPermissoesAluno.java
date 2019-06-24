@@ -1,13 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.edu.ifsul.tests.junit;
 
+import br.edu.ifsul.modelo.Permissao;
 import br.edu.ifsul.modelo.Aluno;
-import br.edu.ifsul.modelo.Especialidade;
-import br.edu.ifsul.modelo.Professor;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -17,14 +11,14 @@ import org.junit.Test;
 
 /**
  *
- * @author guilherme
+ * @author Jorge
  */
-public class TestePersistirProfessorAPartirAluno {
+public class TestePersistirPermissoesAluno {
 
     EntityManagerFactory emf;
     EntityManager em;
 
-    public TestePersistirProfessorAPartirAluno() {
+    public TestePersistirPermissoesAluno() {
     }
 
     @Before
@@ -41,12 +35,9 @@ public class TestePersistirProfessorAPartirAluno {
 
     @Test
     public void teste() {
-        Aluno aluno = em.find(Aluno.class, "GGEHRING");
-        Professor obj = new Professor(aluno);
-        obj.setTitulacao("Titulação 1");
-        obj.setTopicosInteresse("Tópico 2");
-        obj.setEspecialidade(em.find(Especialidade.class, 1));
-
+        Aluno obj = em.find(Aluno.class, "GGEHRING");
+        obj.getPermissoes().add(em.find(Permissao.class, "ADMINISTRADOR"));
+        obj.getPermissoes().add(em.find(Permissao.class, "USUARIO"));
         em.getTransaction().begin();
         em.persist(obj);
         em.getTransaction().commit();
