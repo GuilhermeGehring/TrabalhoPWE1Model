@@ -1,4 +1,4 @@
-package br.edu.ifsul.modelo.util.relatorios;
+package br.edu.ifsul.modelo.util.relatorio;
 
 import br.edu.ifsul.modelo.Curso;
 import br.edu.ifsul.modelo.Instituicao;
@@ -6,9 +6,9 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-public class FabricaObjetos2 {
+public class FabricaObjetos {
 
-    public static List<Curso> carregaProdutos() {
+    public static List<Curso> carregaCursos() {
         List<Curso> lista = new ArrayList<>();
         Instituicao i = new Instituicao();
         i.setNome("IMED");

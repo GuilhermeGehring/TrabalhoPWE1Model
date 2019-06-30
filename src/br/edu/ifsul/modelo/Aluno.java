@@ -2,6 +2,7 @@ package br.edu.ifsul.modelo;
 
 import java.io.Serializable;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 import javax.persistence.Column;
@@ -10,8 +11,6 @@ import javax.persistence.DiscriminatorType;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
@@ -20,10 +19,10 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
@@ -77,14 +76,6 @@ public class Aluno implements Serializable {
     private Calendar nascimento;
 
     @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "aluno_disciplina",
-            joinColumns
-            = @JoinColumn(name = "aluno", referencedColumnName = "nome_usuario", nullable = false),
-            inverseJoinColumns
-            = @JoinColumn(name = "disciplina", referencedColumnName = "id", nullable = false))
-    private Set<Disciplina> disciplinas; //associação bidirecional
-
-    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "permissoes",
             joinColumns
             = @JoinColumn(name = "aluno", referencedColumnName = "nome_usuario", nullable = false),
@@ -133,14 +124,6 @@ public class Aluno implements Serializable {
 
     public void setNascimento(Calendar nascimento) {
         this.nascimento = nascimento;
-    }
-
-    public Set<Disciplina> getDisciplinas() {
-        return disciplinas;
-    }
-
-    public void setDisciplinas(Set<Disciplina> disciplinas) {
-        this.disciplinas = disciplinas;
     }
 
     public Set<Permissao> getPermissoes() {

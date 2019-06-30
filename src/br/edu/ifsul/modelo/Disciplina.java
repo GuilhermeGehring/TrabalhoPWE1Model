@@ -6,8 +6,10 @@
 package br.edu.ifsul.modelo;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -17,10 +19,13 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.Length;
@@ -33,43 +38,53 @@ import org.hibernate.validator.constraints.NotBlank;
 @Entity
 @Table(name = "disciplina")
 public class Disciplina implements Serializable {
-    
+
     @Id
     @SequenceGenerator(name = "seq_disciplina", sequenceName = "seq_disciplina_id", allocationSize = 1)
     @GeneratedValue(generator = "seq_disciplina", strategy = GenerationType.SEQUENCE)
     private Integer id;
-    
+
     @NotNull(message = "O nome não pode ser nulo")
     @NotBlank(message = "O nome não pode ficar em branco")
     @Length(max = 100, message = "O nome não pode ter mais que {max} caracteres")
     @Column(name = "nome", length = 100, nullable = false)
     private String nome;
-    
+
     @NotNull(message = "A descrição não pode ser nula")
-    @NotBlank(message = "A descrição não pode ficar em branco")    
+    @NotBlank(message = "A descrição não pode ficar em branco")
     @Length(max = 100, message = "A descrição não pode ter mais que {max} caracteres")
     @Column(name = "descricao", length = 100, nullable = false)
-    private String descricao;        
-    
+    private String descricao;
+
     @Min(message = "A carga horária não pode ser negativa", value = 0)
     @NotNull(message = "A carga horária deve ser informada")
-    @Column(name = "carga_horaria", nullable = false, columnDefinition = "numeric(12,2)")  
+    @Column(name = "carga_horaria", nullable = false, columnDefinition = "numeric(12,2)")
     private Double cargaHoraria;
-    
+
     @NotNull(message = "Os conhecimentos mínimos não podem ser nulo")
-    @NotBlank(message = "Os conhecimentos mínimos não podem ficar em branco")    
+    @NotBlank(message = "Os conhecimentos mínimos não podem ficar em branco")
     @Column(name = "conhecimentos_minimos", nullable = false)
     private String conhecimentosMinimos;
-    
+
     @NotNull(message = "O curso deve ser informado")
     @ManyToOne
     @JoinColumn(name = "curso", referencedColumnName = "id", nullable = false,
             foreignKey = @ForeignKey(name = "fk_curso_id"))
     private Curso curso;
-    
+
     @OneToMany(mappedBy = "disciplina", cascade = CascadeType.ALL,
-        orphanRemoval = true, fetch = FetchType.LAZY)
+            orphanRemoval = true, fetch = FetchType.LAZY)
     private List<Nota> notas;
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "aluno_disciplina",
+            joinColumns
+            = @JoinColumn(name = "disciplina", referencedColumnName = "id", nullable = false),
+            inverseJoinColumns
+            = @JoinColumn(name = "aluno", referencedColumnName = "nome_usuario", nullable = false),
+            uniqueConstraints = {
+                @UniqueConstraint(columnNames = {"disciplina", "aluno"})})
+    private List<Aluno> alunos;
 
     public Disciplina() {
     }
@@ -122,6 +137,14 @@ public class Disciplina implements Serializable {
         this.curso = curso;
     }
 
+    public List<Aluno> getAlunos() {
+        return alunos;
+    }
+
+    public void setAlunos(List<Aluno> alunos) {
+        this.alunos = alunos;
+    }
+
     public List<Nota> getNotas() {
         return notas;
     }
@@ -154,5 +177,5 @@ public class Disciplina implements Serializable {
         }
         return true;
     }
-        
+
 }
