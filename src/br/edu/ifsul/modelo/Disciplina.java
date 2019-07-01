@@ -18,6 +18,8 @@ import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
@@ -36,6 +38,7 @@ import org.hibernate.validator.constraints.NotBlank;
  * @author guilherme
  */
 @Entity
+@Inheritance(strategy = InheritanceType.JOINED)
 @Table(name = "disciplina")
 @NamedQuery(name = "todosDisciplinaOrdemNome", query = "from Disciplina order by nome")
 public class Disciplina implements Serializable {
@@ -83,7 +86,7 @@ public class Disciplina implements Serializable {
             = @JoinColumn(name = "disciplina", referencedColumnName = "id", nullable = false),
             inverseJoinColumns
             = @JoinColumn(name = "aluno", referencedColumnName = "nome_usuario", nullable = false))
-    private Set<Aluno> alunos = new HashSet<>();
+    private Set<Aluno> alunos;
 
     public Disciplina() {
     }
