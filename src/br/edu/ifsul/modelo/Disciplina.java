@@ -6,7 +6,7 @@
 package br.edu.ifsul.modelo;
 
 import java.io.Serializable;
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
@@ -22,10 +22,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.Length;
@@ -37,6 +37,7 @@ import org.hibernate.validator.constraints.NotBlank;
  */
 @Entity
 @Table(name = "disciplina")
+@NamedQuery(name = "todosDisciplinaOrdemNome", query = "from Disciplina order by nome")
 public class Disciplina implements Serializable {
 
     @Id
@@ -81,10 +82,8 @@ public class Disciplina implements Serializable {
             joinColumns
             = @JoinColumn(name = "disciplina", referencedColumnName = "id", nullable = false),
             inverseJoinColumns
-            = @JoinColumn(name = "aluno", referencedColumnName = "nome_usuario", nullable = false),
-            uniqueConstraints = {
-                @UniqueConstraint(columnNames = {"disciplina", "aluno"})})
-    private List<Aluno> alunos;
+            = @JoinColumn(name = "aluno", referencedColumnName = "nome_usuario", nullable = false))
+    private Set<Aluno> alunos = new HashSet<>();
 
     public Disciplina() {
     }
@@ -137,11 +136,11 @@ public class Disciplina implements Serializable {
         this.curso = curso;
     }
 
-    public List<Aluno> getAlunos() {
+    public Set<Aluno> getAlunos() {
         return alunos;
     }
 
-    public void setAlunos(List<Aluno> alunos) {
+    public void setAlunos(Set<Aluno> alunos) {
         this.alunos = alunos;
     }
 
